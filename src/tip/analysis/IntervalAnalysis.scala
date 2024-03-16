@@ -1,5 +1,6 @@
 package tip.analysis
 
+import tip.ast.{AAssignStmt, ADeclaration, AIdentifier, AVarStmt, NoCalls, NoPointers, NoRecords}
 import tip.cfg._
 import tip.ast.AstNodeData.DeclarationData
 import tip.lattices.IntervalLattice._
@@ -24,7 +25,6 @@ trait IntervalAnalysisWidening extends ValueAnalysisMisc with Dependencies[CfgNo
       IntNum(x.value): Num
     } + MInf + PInf
   }
-
   def loophead(n: CfgNode): Boolean = indep(n).exists(cfg.rank(_) > cfg.rank(n))
 
   private def minB(b: IntervalLattice.Num) = B.filter(b <= _).min
@@ -35,7 +35,7 @@ trait IntervalAnalysisWidening extends ValueAnalysisMisc with Dependencies[CfgNo
     (x, y) match {
       case (IntervalLattice.EmptyInterval, _) => y
       case (_, IntervalLattice.EmptyInterval) => x
-      case ((l1, h1), (l2, h2)) => ??? //<--- Complete here
+      case ((l1, h1), (l2, h2)) => (maxB(IntervalLattice.min(Set(l1, h1))), minB(IntervalLattice.max(Set(l2, h2))))
     }
 
   def widen(x: liftedstatelattice.Element, y: liftedstatelattice.Element): liftedstatelattice.Element =
