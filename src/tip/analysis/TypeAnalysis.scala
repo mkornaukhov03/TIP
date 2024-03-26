@@ -118,7 +118,7 @@ class TypeAnalysis(program: AProgram)(implicit declData: DeclarationData) extend
           case dfw: ADirectFieldWrite =>
             unify(RecordType(allFieldNames.map(fieldName => if (fieldName == dfw.field) Type.ast2typevar(as.right) else FreshVarType())), dfw.id)
           case ifw: AIndirectFieldWrite =>
-            unify(RecordType(allFieldNames.map(fieldName => if (fieldName == ifw.field) Type.ast2typevar(as.right) else FreshVarType())), ifw.exp)
+            unify(PointerType(RecordType(allFieldNames.map(fieldName => if (fieldName == ifw.field) Type.ast2typevar(as.right) else FreshVarType()))), ifw.exp)
         }
       case bin: ABinaryOp =>
         bin.operator match {
