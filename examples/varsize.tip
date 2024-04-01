@@ -1,20 +1,8 @@
 main() {
-    var x,y,z,flag;
-    flag = 0;
-    y = 32;
-    z = 250;
-    while (input) {
-        flag = 1;
-        x = 7;
-        x = x+1;
-        y = y / 2;
-    }
-    if (y > 0) {
-        z = z + y;
-    }
-    if (flag) {
-        flag = 0;
-        z = z - 2;
-    }
+    var x;
+    x = 123234;
+    output x;
+    x = 1;
+    output x;
     return 0;
 }
